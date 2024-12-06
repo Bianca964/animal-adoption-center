@@ -74,12 +74,15 @@ def logout():
 def upload():
     """Handle image uploads."""
     if request.method == 'POST':
-        image = request.files['file']
-        category = request.form['category']
+        image = request.files['image']
+        name = request.form['name']
+        age = request.form['age']
+        animal_type = request.form['type']
+        description = request.form['description']
 
         if image:
             # Save the image in the appropriate folder
-            save_path = os.path.join(current_app.root_path, 'static', 'images', category)
+            save_path = os.path.join(current_app.root_path, 'static', 'images', animal_type)
             os.makedirs(save_path, exist_ok=True)
             image.save(os.path.join(save_path, image.filename))
 
