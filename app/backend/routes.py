@@ -1,6 +1,8 @@
 import os
+from datetime import timedelta
+
 from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app
-from flask_login import login_user, logout_user, login_required, current_user
+from flask_login import login_user, logout_user, login_required, current_user, UserMixin
 
 main = Blueprint('main', __name__)
 
@@ -8,22 +10,24 @@ main = Blueprint('main', __name__)
 # Replace this later with database integration or a user model
 MOCK_ADMIN = {'id': 1, 'username': 'admin', 'password': 'password'}
 
-class User:
-    """A simple user class for Flask-Login compatibility."""
-    def __init__(self, user_id):
+class User(UserMixin):
+    """A user class compatible with Flask-Login."""
+    def __init__(self, user_id, username):
         self.id = user_id
-
-    def is_authenticated(self):
-        return True
+        self.username = username
 
     def is_active(self):
+        """Returns whether the user is active (always True in this example)."""
         return True
 
     def is_anonymous(self):
+        """Returns False as this is not an anonymous user."""
         return False
 
     def get_id(self):
+        """Returns the unique ID of the user."""
         return str(self.id)
+
 
 # Home Page Route
 @main.route('/')
@@ -46,8 +50,9 @@ def login():
 
         # Authenticate admin (replace with real database check later)
         if username == MOCK_ADMIN['username'] and password == MOCK_ADMIN['password']:
-            user = User(MOCK_ADMIN['id'])
-            login_user(user)
+            user = User(MOCK_ADMIN['id'], MOCK_ADMIN['username'])
+            login_user(user, remember=True)
+            # user.is_authenticated = True
             return redirect(url_for('main.login_successful'))
         else:
             flash('Invalid username or password', 'danger')
@@ -58,15 +63,6 @@ def login():
 def login_successful():
     """Display login successful page."""
     return render_template('login_successful.html')
-
-# Logout Route
-@main.route('/logout')
-@login_required
-def logout():
-    """Log the admin out."""
-    logout_user()
-    flash('You have been logged out.', 'info')
-    return redirect(url_for('main.login'))
 
 # Upload Page Route
 @main.route('/upload', methods=['GET', 'POST'])
@@ -113,8 +109,9 @@ def log_out_successful():
     """Display login successful page."""
     return render_template('log_out_successful.html')
 # Log Out Route
-@main.route('/log_out')
-def log_out():
+@main.route('/logout')
+def logout():
     # Handle log out logic here
     flash('You have been logged out.', 'info')
+    logout_user()
     return render_template('log_out_successful.html')
