@@ -1,15 +1,19 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
 }
 
 h1, h2 {
-    color: #333;
+    color: #6c757d;
 }
 
 footer {
     background-color: #e9ecef;
     color: #6c757d;
+    padding: 10px;
+    text-align: center;
 }
 
 .navbar-brand {
@@ -18,4 +22,37 @@ footer {
 
 img {
     border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Adding baby blue margins for container elements */
+.container {
+    background-color: #ffffff;
+    border: 5px solid #b3d9ff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+p {
+    line-height: 1.6;
+    color: #495057;
+}
+
+ul li {
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: #b3d9ff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #99ccee;
 }
