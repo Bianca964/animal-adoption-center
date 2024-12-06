@@ -120,3 +120,7 @@ def logout():
     flash('You have been logged out.', 'info')
     logout_user()
     return render_template('log_out_successful.html')
+
+@main.route('/not_logged_in')
+def not_logged_in():
+    return render_template('not_logged_in.html')
