@@ -1,7 +1,7 @@
 from datetime import timedelta
 
 from flask_login import LoginManager
-from flask import Flask
+from flask import Flask, redirect, url_for
 
 from app.backend.routes import User, MOCK_ADMIN
 
@@ -27,6 +27,10 @@ def create_app():
     app.config['REMEMBER_COOKIE_DURATION'] = timedelta(seconds=0)
     # Initialize Login Manager
     login_manager.init_app(app)
+
+    @login_manager.unauthorized_handler
+    def unauthorized_callback():
+        return redirect(url_for('main.not_logged_in'))
 
     # Register your blueprint
     from .routes import main
