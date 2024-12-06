@@ -99,4 +99,22 @@ def about():
     """Display information about the adoption center."""
     return render_template('about.html')
 
+@main.route('/sign_up', methods=['GET', 'POST'])
+def sign_up():
+    if request.method == 'POST':
+        # Handle sign up logic here
+        flash('Sign up successful!', 'success')
+        return redirect(url_for('main.home'))
+    return render_template('sign_up.html')
 
+
+@main.route('/log_out_successful')
+def log_out_successful():
+    """Display login successful page."""
+    return render_template('log_out_successful.html')
+# Log Out Route
+@main.route('/log_out')
+def log_out():
+    # Handle log out logic here
+    flash('You have been logged out.', 'info')
+    return render_template('log_out_successful.html')
