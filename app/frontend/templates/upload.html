@@ -1,0 +1,45 @@
+{% extends 'home.html' %}
+
+{% block title %}Upload Animal for Adoption{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Upload Animal for Adoption</h1>
+    <form method="POST" action="/upload/" enctype="multipart/form-data">
+        {% csrf_token %} <!-- Include this for Django CSRF protection -->
+
+        <div class="mb-3">
+            <label for="name" class="form-label">Animal Name</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Enter animal's name" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="age" class="form-label">Animal Age</label>
+            <input type="number" class="form-control" id="age" name="age" placeholder="Enter animal's age in years" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="type" class="form-label">Animal Type</label>
+            <select class="form-select" id="type" name="type" required>
+                <option value="">Select animal type</option>
+                <option value="dog">Dog</option>
+                <option value="cat">Cat</option>
+                <option value="bird">Bird</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Animal Description</label>
+            <textarea class="form-control" id="description" name="description" rows="4" placeholder="Write a short description about the animal" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Animal Image</label>
+            <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
+</div>
+{% endblock %}
