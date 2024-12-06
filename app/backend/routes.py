@@ -49,11 +49,16 @@ def login():
             user = User(MOCK_ADMIN['id'])
             login_user(user)
             flash('Login successful!', 'success')
-            return redirect(url_for('main.home'))
+            return redirect(url_for('main.login_successful'))
         else:
             flash('Invalid username or password', 'danger')
 
     return render_template('login.html')
+
+@main.route('/login_successful')
+def login_successful():
+    """Display login successful page."""
+    return render_template('login_successful.html')
 
 # Logout Route
 @main.route('/logout')
