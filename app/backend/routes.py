@@ -48,7 +48,6 @@ def login():
         if username == MOCK_ADMIN['username'] and password == MOCK_ADMIN['password']:
             user = User(MOCK_ADMIN['id'])
             login_user(user)
-            flash('Login successful!', 'success')
             return redirect(url_for('main.login_successful'))
         else:
             flash('Invalid username or password', 'danger')
