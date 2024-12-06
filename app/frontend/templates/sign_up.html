@@ -1,7 +1,9 @@
+{% extends 'home.html' %}
+
 {% block content %}
 <div class="container mt-5">
     <h1 class="text-center">Create an Account</h1>
-    <form method="post" action="/sign_in" class="mt-4">
+    <form method="post" action="/sign_up" class="mt-4">
         <div class="mb-3">
             <label for="username" class="form-label">Username</label>
             <input type="text" class="form-control" id="username" name="username" required>
