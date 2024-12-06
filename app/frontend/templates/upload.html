@@ -5,9 +5,7 @@
 {% block content %}
 <div class="container mt-5">
     <h1 class="text-center">Upload Animal for Adoption</h1>
-    <form method="POST" action="/upload/" enctype="multipart/form-data">
-        {% csrf_token %} <!-- Include this for Django CSRF protection -->
-
+    <form method="POST" action="{{ url_for('main.upload') }}" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="name" class="form-label">Animal Name</label>
             <input type="text" class="form-control" id="name" name="name" placeholder="Enter animal's name" required>
