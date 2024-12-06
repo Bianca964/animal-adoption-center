@@ -1,0 +1,11 @@
+{% extends 'home.html' %}
+
+{% block title %}Logged Out{% endblock %}
+
+{% block content %}
+<div class="container mt-5 text-center">
+    <h1 class="text-danger">You Have Logged Out</h1>
+    <p class="mt-3">You have successfully logged out of your account.</p>
+    <a href="/login" class="btn btn-primary mt-4">Log In Again</a>
+</div>
+{% endblock %}

@@ -98,3 +98,5 @@ def upload():
 def about():
     """Display information about the adoption center."""
     return render_template('about.html')
+
+
