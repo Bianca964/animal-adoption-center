@@ -99,15 +99,20 @@ def about():
 def sign_up():
     if request.method == 'POST':
         # Handle sign up logic here
-        flash('Sign up successful!', 'success')
-        return redirect(url_for('main.home'))
+        return redirect(url_for('main.sign_up_successful'))
     return render_template('sign_up.html')
 
+
+@main.route('/sign_up_successful')
+def sign_up_successful():
+    """Display login successful page."""
+    return render_template('sign_up_successful.html')
 
 @main.route('/log_out_successful')
 def log_out_successful():
     """Display login successful page."""
     return render_template('log_out_successful.html')
+
 # Log Out Route
 @main.route('/logout')
 def logout():
