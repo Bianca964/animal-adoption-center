@@ -44,3 +44,30 @@ def create_app():
     app.register_blueprint(main)
 
     return app
+
+
+def init_cli_commands(app):
+    """Register CLI commands with Flask."""
+    from flask.cli import with_appcontext
+
+    @app.cli.command('create-db')
+    @with_appcontext
+    def create_db():
+        """Create the database tables."""
+        db.create_all()
+        print("Database created!")
+
+    @app.cli.command('seed-db')
+    @with_appcontext
+    def seed_db():
+        """Seed the database with sample data."""
+        sample_animal = Animal(
+            name="Buddy",
+            age=3,
+            animal_type="Dog",
+            description="Friendly golden retriever",
+            image="static/uploads/sample.jpg"
+        )
+        db.session.add(sample_animal)
+        db.session.commit()
+        print("Database seeded!")
