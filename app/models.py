@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request, render_template
+from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -10,7 +11,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 # User model
-class User(db.Model):
+class User(db.Model, UserMixin):
     """Database model for a user."""
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
@@ -20,6 +21,14 @@ class User(db.Model):
 
     def __repr__(self):
         return f'<User {self.username}>'
+    def check_password(self, password):
+        """Check if the provided password matches the stored password."""
+        return self.password == password
+
+    @property
+    def is_active(self):
+        """Returns True for active users."""
+        return True  # Assuming the user is always active. You can modify this logic later.
 
 # Animal model
 class Animal(db.Model):
