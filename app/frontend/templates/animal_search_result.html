@@ -1,0 +1,24 @@
+{% extends "home.html" %}
+
+{% block content %}
+<h1 class="text-center">Search Results for "{{ query }}"</h1>
+<div class="row">
+    {% if animals %}
+        {% for animal in animals %}
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card m-2" style="width: 18rem;">
+                <img src="{{ url_for('static', filename=animal.image) }}" class="card-img-top" alt="{{ animal.name }}">
+                <div class="card-body">
+                    <p class="card-text"><strong>Name:</strong> {{ animal.name }}</p>
+                    <p class="card-text"><strong>Description:</strong> {{ animal.description }}</p>
+                    <p class="card-text"><strong>Type:</strong> {{ animal.animal_type }}</p>
+                    <p class="card-text"><strong>Age:</strong> {{ animal.age }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p class="text-center">No results found for your query.</p>
+    {% endif %}
+</div>
+{% endblock %}
