@@ -104,7 +104,7 @@ def upload():
 @main.route('/search')
 def search_animals():
     query = request.args.get('q', '').lower()
-    results = Animal.query.filter(Animal.name.ilike(f'%{query}%')).all()
+    results = Animal.query.filter(Animal.animal_type.ilike(f'%{query}%')).all()
     return render_template('animal_search_result.html', animals=results, query=query)
 
 
