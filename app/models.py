@@ -1,11 +1,11 @@
-from flask import Flask, jsonify, request, render_template
-from flask_login import UserMixin
+from flask import Flask, jsonify, request, render_template, redirect, url_for
+from flask_login import UserMixin, login_required
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
 # Configure the SQLite database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///adoption_center.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy()
@@ -48,36 +48,25 @@ class Animal(db.Model):
 def index():
     return render_template('index.html')  # Serve the HTML file
 
-# Route for the search functionality
-@app.route('/search')
-def search_animals():
-    query = request.args.get('q', '').lower()
-    results = Animal.query.filter(Animal.name.ilike(f'%{query}%')).all()
-    # Include additional details like type, age, and description in the response
-    return jsonify([{
-        'name': animal.name,
-        'type': animal.animal_type,
-        'age': animal.age,
-        'description': animal.description,
-        'image': animal.image
-    } for animal in results])
 
-# Utility route to populate the database with sample data
-@app.route('/populate')
-def populate_database():
-    # Sample data for animals
-    sample_animals = [
-        {"name": "Lion", "age": "5 years", "animal_type": "Wild", "description": "The king of the jungle", "image": "lion.jpg"},
-        {"name": "Tiger", "age": "4 years", "animal_type": "Wild", "description": "A majestic big cat", "image": "tiger.jpg"},
-        {"name": "Elephant", "age": "10 years", "animal_type": "Wild", "description": "A gentle giant", "image": "elephant.jpg"},
-        {"name": "Bella", "age": "2 years", "animal_type": "Dog", "description": "A friendly and loyal companion", "image": "bella.jpg"},
-        {"name": "Kitty", "age": "1 year", "animal_type": "Cat", "description": "Loves to play with yarn", "image": "kitty.jpg"},
-    ]
-    for animal_data in sample_animals:
-        if not Animal.query.filter_by(name=animal_data["name"]).first():
-            db.session.add(Animal(**animal_data))
-    db.session.commit()
-    return "Database populated with sample animals!"
+
+# Route to render the upload page
+@app.route('/upload', methods=['POST'])
+@login_required
+def upload_animal():
+    if request.method == 'POST':
+        name = request.form['name']
+        age = request.form['age']
+        animal_type = request.form['animal_type']
+        description = request.form['description']
+        image = request.form['image']
+        new_animal = Animal(name=name, age=age, animal_type=animal_type, description=description, image=image)
+        db.session.add(new_animal)
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('upload.html')
+
+
 
 if __name__ == '__main__':
     # Create the database tables if they don't exist
