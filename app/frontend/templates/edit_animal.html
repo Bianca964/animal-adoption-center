@@ -1,0 +1,24 @@
+{% extends "home.html" %}
+
+{% block content %}
+<h1 class="text-center">Edit Animal: {{ animal.name }}</h1>
+<form method="POST">
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" name="name" value="{{ animal.name }}" required>
+    </div>
+    <div class="form-group">
+        <label for="age">Age</label>
+        <input type="number" class="form-control" id="age" name="age" value="{{ animal.age }}" required>
+    </div>
+    <div class="form-group">
+        <label for="type">Type</label>
+        <input type="text" class="form-control" id="type" name="type" value="{{ animal.animal_type }}" required>
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" id="description" name="description" required>{{ animal.description }}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Update Animal</button>
+</form>
+{% endblock %}
