@@ -2,6 +2,7 @@ from datetime import timedelta
 
 from flask_login import LoginManager
 from flask import Flask, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
 
 from app.backend.routes import User, MOCK_ADMIN
 
@@ -20,11 +21,15 @@ def load_user(user_id):
         return user
     return None
 
+db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__, template_folder='../frontend/templates', static_folder='../frontend/static')
     app.config['SECRET_KEY'] = 'secret_key_here'
     app.config['REMEMBER_COOKIE_DURATION'] = timedelta(seconds=0)
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
     # Initialize Login Manager
     login_manager.init_app(app)
 
