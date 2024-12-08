@@ -1,20 +1,18 @@
 {% extends "home.html" %}
 
 {% block content %}
-<h1 class="text-center my-4">Welcome to the Animal Adoption Center</h1>
+<h1 class="text-center my-4">All Animals</h1>
 <div class="row">
-    {% for category, images in categories.items() %}
-    <div class="col-12">
-        <h2 class="mt-4">{{ category }}</h2>
-        <div class="d-flex flex-wrap">
-            {% for image in images %}
-            <div class="card m-2" style="width: 18rem;">
-                <img src="{{ url_for('static', filename=image) }}" class="card-img-top" alt="{{ category }}">
-                <div class="card-body">
-                    <p class="card-text text-center">{{ category }}</p>
-                </div>
+    {% for animal in animals %}
+    <div class="col-12 col-md-6 col-lg-4">
+        <div class="card m-2" style="width: 18rem;">
+            <img src="{{ url_for('static', filename=animal.image) }}" class="card-img-top" alt="{{ animal.name }}">
+            <div class="card-body">
+                <p class="card-text"><strong>Name:</strong> {{ animal.name }}</p>
+                <p class="card-text"><strong>Description:</strong> {{ animal.description }}</p>
+                <p class="card-text"><strong>Type:</strong> {{ animal.animal_type }}</p>
+                <p class="card-text"><strong>Age:</strong> {{ animal.age }}</p>
             </div>
-            {% endfor %}
         </div>
     </div>
     {% endfor %}

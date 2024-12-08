@@ -1,32 +1,10 @@
 import os
 
-from charset_normalizer.utils import is_arabic
-from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app
+from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app, jsonify
 from flask_login import login_user, logout_user, login_required, current_user, UserMixin
 from app.models import db, Animal, User  # Import the Animal model
 
 main = Blueprint('main', __name__)
-
-# --- Mock User Management (Temporary for Testing) ---
-# MOCK_ADMIN = {'id': 1, 'username': 'admin', 'password': 'password'}
-#
-# class User(UserMixin):
-#     """A user class compatible with Flask-Login."""
-#     def __init__(self, user_id, username):
-#         self.id = user_id
-#         self.username = username
-#
-#     def is_active(self):
-#         """Returns whether the user is active (always True in this example)."""
-#         return True
-#
-#     def is_anonymous(self):
-#         """Returns False as this is not an anonymous user."""
-#         return False
-#
-#     def get_id(self):
-#         """Returns the unique ID of the user."""
-#         return str(self.id)
 
 # Home Page Route
 @main.route('/')
@@ -65,30 +43,48 @@ def login_successful():
     """Display login successful page."""
     return render_template('login_successful.html')
 
-# Upload Page Route
+
+
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 @main.route('/upload', methods=['GET', 'POST'])
 @login_required
 def upload():
     """Handle image uploads."""
     if request.method == 'POST':
         image = request.files['image']
-        name = request.form['name']
-        age = request.form['age']
-        animal_type = request.form['type']
-        description = request.form['description']
+        name = request.form.get('name')
+        age = request.form.get('age')
 
-        if image:
-            # Save the image in the appropriate folder
-            save_path = os.path.join(current_app.root_path, 'static', 'images', animal_type)
+        animal_type = request.form.get('type')
+        description = request.form.get('description')
+
+        # Validate inputs
+        if not all([name, age, animal_type, description, image]):
+            flash('All fields are required. Please fill out the form completely.', 'danger')
+            return redirect(url_for('main.upload'))
+
+        if not age.isdigit():
+            flash('Age must be a number.', 'danger')
+            return redirect(url_for('main.upload'))
+
+        if image and allowed_file(image.filename):
+            # Save the image
+            save_path = os.path.join(current_app.root_path, "static", "images", animal_type)
+
             os.makedirs(save_path, exist_ok=True)
             image_path = os.path.join(save_path, image.filename)
             image.save(image_path)
 
             # Save the animal to the database
-            relative_image_path = os.path.join('static', 'images', animal_type, image.filename)
+            relative_image_path = os.path.join("static", "images", animal_type, image.filename)
             animal = Animal(
                 name=name,
-                age=age,
+                age=int(age),
                 animal_type=animal_type,
                 description=description,
                 image=relative_image_path
@@ -99,9 +95,19 @@ def upload():
             flash('Animal uploaded successfully!', 'success')
             return redirect(url_for('main.home'))
         else:
-            flash('No file selected. Please choose a file to upload.', 'danger')
+            flash('Invalid file type. Please upload an image file (png, jpg, jpeg, gif).', 'danger')
 
     return render_template('upload.html')
+
+
+# Route for the search functionality
+@main.route('/search')
+def search_animals():
+    query = request.args.get('q', '').lower()
+    results = Animal.query.filter(Animal.name.ilike(f'%{query}%')).all()
+    return render_template('animal_search_result.html', animals=results, query=query)
+
+
 
 # About Page Route
 @main.route('/about')
@@ -154,3 +160,33 @@ def logout():
 @main.route('/not_logged_in')
 def not_logged_in():
     return render_template('not_logged_in.html')
+
+
+@main.route('/animals', methods=['GET'])
+def animals():
+    animal_type = request.args.get('type')
+    if animal_type:
+        animals = Animal.query.filter_by(animal_type=animal_type).all()
+    else:
+        animals = Animal.query.all()
+    print (animals)
+    return render_template('animals.html', animals=animals, filter_type=animal_type)
+
+
+
+
+def pretty_print_POST(req):
+    """
+    At this point it is completely built and ready
+    to be fired; it is "prepared".
+
+    However pay attention at the formatting used in
+    this function because it is programmed to be pretty
+    printed and may differ from the actual request.
+    """
+    print('{}\n{}\r\n{}\r\n\r\n{}'.format(
+        '-----------START-----------',
+        req.method + ' ' + req.url,
+        '\r\n'.join('{}: {}'.format(k, v) for k, v in req.headers.items()),
+        req.body,
+    ))
