@@ -1,6 +1,6 @@
 from datetime import timedelta
 from flask import Flask, redirect, url_for
-from flask_migrate import migrate
+
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_migrate import Migrate
@@ -34,7 +34,7 @@ def create_app():
     db.init_app(app)
     login_manager.init_app(app)
     migrate.init_app(app, db)  # Initialize Flask-Migrate
-    # Unauthorized callback - redirects to the login page if user isn't authorized
+
     @login_manager.unauthorized_handler
     def unauthorized_callback():
         return redirect(url_for('main.not_logged_in'))
