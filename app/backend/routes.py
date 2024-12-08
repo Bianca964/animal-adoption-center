@@ -175,6 +175,46 @@ def animals():
 
 
 
+@main.route('/delete_animal/<int:animal_id>', methods=['POST'])
+@login_required
+def delete_animal(animal_id):
+    animal = Animal.query.get_or_404(animal_id)
+    if current_user.is_admin:  # Ensure only admins can delete
+        db.session.delete(animal)
+        db.session.commit()
+        flash('Animal deleted successfully.', 'success')
+    else:
+        flash('You do not have permission to perform this action.', 'danger')
+    return redirect(url_for('main.animals'))
+
+
+
+
+
+@main.route('/edit_animal/<int:animal_id>', methods=['GET', 'POST'])
+@login_required
+def edit_animal(animal_id):
+    """Edit an animal's details."""
+    animal = Animal.query.get_or_404(animal_id)
+    if not current_user.is_admin:
+        flash('You do not have permission to perform this action.', 'danger')
+        return redirect(url_for('main.animals'))
+
+    if request.method == 'POST':
+        animal.name = request.form.get('name', animal.name)
+        animal.age = request.form.get('age', animal.age)
+        animal.animal_type = request.form.get('type', animal.animal_type)
+        animal.description = request.form.get('description', animal.description)
+
+        db.session.commit()
+        flash('Animal details updated successfully.', 'success')
+        return redirect(url_for('main.animals'))
+
+    return render_template('edit_animal.html', animal=animal)
+
+
+
+
 def pretty_print_POST(req):
     """
     At this point it is completely built and ready
