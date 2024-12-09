@@ -63,11 +63,20 @@
         </div>
     </nav>
 
-    <div class="container mt-4">
+    <<div class="container mt-4">
         {% block content %}
-        <h1>Welcome to the Animal Adoption Center</h1>
-        <a href="{{ url_for('main.animals') }}" class="btn btn-primary">View All Animals</a>
-        Here since 2024
+        <h1>Welcome to the Animal Adoption Center!</h1>
+
+        <!-- Folosește grila pentru a alinia imaginea și butonul -->
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+                <!-- Butonul mai mare, centrat și cu un cadru -->
+                <a href="{{ url_for('main.animals') }}" class="btn btn-primary btn-lg mb-4 p-4 rounded border-0 shadow-lg" style="width: 100%; max-width: 300px;">View All Animals</a>
+            </div>
+            <div class="col-md-6">
+                <img src="{{ url_for('static', filename='images/HomeImage.png') }}" alt="Animal Image" class="img-fluid rounded">
+            </div>
+        </div>
         {% endblock %}
     </div>
 
