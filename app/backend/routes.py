@@ -216,6 +216,11 @@ def edit_animal(animal_id):
 
 @main.route('/adopt/<int:animal_id>', methods=['GET', 'POST'])
 def adopt_animal(animal_id):
+    if not current_user.is_authenticated:
+        # Redirecționează către pagina "not_logged_in"
+        flash('You must be logged in to adopt an animal.', 'warning')
+        return redirect(url_for('main.not_logged_in'))
+
     animal = Animal.query.get_or_404(animal_id)
     if request.method == 'POST':
         # Procesează formularul de adopție
