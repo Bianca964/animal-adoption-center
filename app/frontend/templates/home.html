@@ -9,6 +9,29 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
+    <!-- Mesaje flash (feedback vizual pentru acțiuni) -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="container mt-3">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <script>
+        function removeAlert(button) {
+            var alertBox = button.closest('.alert'); // Găsește cel mai apropiat element .alert
+            alertBox.style.display = 'none'; // Ascunde complet alertul
+        }
+    </script>
+
+
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <a class="navbar-brand" href="/">Adopt a Pet</a>
@@ -18,7 +41,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <!-- Centered Search Bar -->
                 <form class="d-flex mx-auto me-lg-5" style="max-width: 400px; width: 100%;" action="/search" method="GET">
-                    <input class="form-control me-2" type="search" name="q" placeholder="Search animal name..." aria-label="Search">
+                    <input class="form-control me-2" type="search" name="q" placeholder="Search animal type..." aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
                 <ul class="navbar-nav ms-auto">
@@ -40,11 +63,20 @@
         </div>
     </nav>
 
-    <div class="container mt-4">
+    <<div class="container mt-4">
         {% block content %}
-        <h1>Welcome to the Animal Adoption Center</h1>
-        <a href="{{ url_for('main.animals') }}" class="btn btn-primary">View All Animals</a>
-        Here since 2024
+        <h1>Welcome to the Animal Adoption Center!</h1>
+
+        <!-- Folosește grila pentru a alinia imaginea și butonul -->
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+                <!-- Butonul mai mare, centrat și cu un cadru -->
+                <a href="{{ url_for('main.animals') }}" class="btn btn-primary btn-lg mb-4 p-4 rounded border-0 shadow-lg" style="width: 100%; max-width: 300px;">View All Animals</a>
+            </div>
+            <div class="col-md-6">
+                <img src="{{ url_for('static', filename='images/HomeImage.png') }}" alt="Animal Image" class="img-fluid rounded">
+            </div>
+        </div>
         {% endblock %}
     </div>
 
