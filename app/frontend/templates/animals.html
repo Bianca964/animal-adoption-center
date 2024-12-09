@@ -13,7 +13,9 @@
                 <p class="card-text"><strong>Type:</strong> {{ animal.animal_type }}</p>
                 <p class="card-text"><strong>Age:</strong> {{ animal.age }}</p>
                 <div class="d-flex justify-content-between mt-2">
+                    {% if not current_user.is_admin %}
                     <a href="{{ url_for('main.adopt_animal', animal_id=animal.id) }}" class="btn btn-success btn-sm">Adopt</a>
+                    {% endif %}
                     {% if current_user.is_admin %}
                     <div class="d-flex">
                         <a href="{{ url_for('main.edit_animal', animal_id=animal.id) }}" class="btn btn-primary btn-sm me-2">Edit</a>
