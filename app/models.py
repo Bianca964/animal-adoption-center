@@ -1,7 +1,6 @@
 from flask import Flask, jsonify, request, render_template, redirect, url_for
 from flask_login import UserMixin, login_required
 from flask_sqlalchemy import SQLAlchemy
-
 app = Flask(__name__)
 
 # Configure the SQLite database
@@ -21,6 +20,7 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return f'<User {self.username}>'
+
     def check_password(self, password):
         """Check if the provided password matches the stored password."""
         return self.password == password
@@ -48,8 +48,6 @@ class Animal(db.Model):
 def index():
     return render_template('index.html')  # Serve the HTML file
 
-
-
 # Route to render the upload page
 @app.route('/upload', methods=['POST'])
 @login_required
@@ -65,11 +63,3 @@ def upload_animal():
         db.session.commit()
         return redirect(url_for('index'))
     return render_template('upload.html')
-
-
-
-if __name__ == '__main__':
-    # Create the database tables if they don't exist
-    with app.app_context():
-        db.create_all()
-    app.run(debug=True)

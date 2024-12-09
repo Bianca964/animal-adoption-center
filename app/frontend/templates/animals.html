@@ -6,19 +6,14 @@
     {% for animal in animals %}
     <div class="col-12 col-md-6 col-lg-4">
         <div class="card m-2" style="width: 18rem;">
-            <!-- Image section (header) -->
             <div class="card-header p-0">
-<!--                <img src="{{ url_for('static', filename=animal.image) }}" class="card-img-top" alt="{{ animal.jpg }}" style="height: 200px; object-fit: cover;">-->
-                    <img src="{{ url_for('static', filename=animal.image_path) }}" class="card-img-top" alt="{{ animal.jpg }}" style="height: 200px; object-fit: cover;">
-
+                <img src="{{ url_for('static', filename=animal.image_path) }}" class="card-img-top" alt="{{ animal.jpg }}" style="height: 200px; object-fit: cover;">
             </div>
-            <!-- Animal details -->
             <div class="card-body">
                 <p class="card-text"><strong>Name:</strong> {{ animal.name }}</p>
                 <p class="card-text"><strong>Description:</strong> {{ animal.description }}</p>
                 <p class="card-text"><strong>Type:</strong> {{ animal.animal_type }}</p>
                 <p class="card-text"><strong>Age:</strong> {{ animal.age }}</p>
-                <!-- Buttons section -->
                 <div class="d-flex justify-content-between mt-2">
                     {% if not current_user.is_admin %}
                     <a href="{{ url_for('main.adopt_animal', animal_id=animal.id) }}" class="btn btn-success btn-sm">Adopt</a>

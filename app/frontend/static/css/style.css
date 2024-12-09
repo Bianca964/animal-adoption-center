@@ -1,7 +1,7 @@
 /* Body styles */
 body {
     font-family: 'Georgia', serif;
-    background-color: #FDDCDDFF; /* Beige background */
+    background-color: #FDDCDDFF;
     margin: 0;
     padding: 0;
     background-image: url('/static/images/background.png');
@@ -13,17 +13,17 @@ body {
 
 /* Heading styles */
 h1, h2 {
-    color: #7A0C3C; /* Darker shade of the background color */
+    color: #7A0C3C;
     font-family: 'Playfair Display', serif;
 }
 
 .navbar {
-    background-color: #FF6CAC; /* Lighter, more vibrant pink */
+    background-color: #FF6CAC;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-brand {
-    color: #7A0C3C; /* Darker shade */
+    color: #7A0C3C;
     font-weight: bold;
     font-size: 1.5rem;
 }
@@ -35,12 +35,12 @@ h1, h2 {
 img {
     border-radius: 8px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    border: 2px solid #ff6c9f; /* Lighter pink */
+    border: 2px solid #ff6c9f;
 }
 
 .container {
     background-color: rgba(255, 255, 255, 0.8);
-    border: 3px solid #ff6c9f; /* Lighter pink */
+    border: 3px solid #ff6c9f;
     border-radius: 12px;
     padding: 40px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -49,7 +49,7 @@ img {
 }
 
 footer {
-    background-color: #40061E; /* Very dark shade for contrast */
+    background-color: #40061E;
     color: #ffffff;
     padding: 20px;
     text-align: center;
@@ -62,7 +62,7 @@ footer p {
 
 /* Button Styling */
 button {
-    background-color: #ff6ca4; /* Lighter pink */
+    background-color: #ff6ca4;
     color: #fff;
     border: none;
     padding: 14px 28px;
@@ -79,19 +79,19 @@ button:hover {
 
 /* ADOPT A PET Button */
 button.adopt-button {
-    background-color: #7A0C3C; /* Darker shade */
+    background-color: #7A0C3C;
     font-size: 20px;
     font-weight: bold;
 }
 
 button.adopt-button:hover {
-    background-color: #40061E; /* Very dark shade */
+    background-color: #40061E;
 }
 
 /* Text and paragraph styles */
 p {
     line-height: 1.8;
-    color: #532918; /* Dark brown for readability */
+    color: #532918;
 }
 
 /* Lists Styling */
@@ -103,7 +103,7 @@ ul li {
 /* Section Styling */
 .left-section, .right-section {
     background-color: #f1f1f1;
-    border: 2px solid #FF6CAC; /* Lighter pink */
+    border: 2px solid #FF6CAC;
     border-radius: 12px;
     padding: 20px;
     margin: 10px;
@@ -121,63 +121,63 @@ ul li {
     }
 }
 
-/* Tranziție pentru butoane */
+/* Transition for buttons */
 .btn {
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .btn:hover {
-    background-color: #0056b3; /* Culoare mai închisă la hover */
-    transform: scale(1.1); /* Mărește butonul puțin */
+    background-color: #0056b3;
+    transform: scale(1.1);
 }
 
-/* Tranziție pentru imagini */
+/* Transition for images */
 .card-img-top {
     transition: transform 0.3s ease;
 }
 
 .card-img-top:hover {
-    transform: scale(1.1); /* Efect de zoom pe imagine la hover */
+    transform: scale(1.1);
 }
 
-/* Butoane cu colțuri rotunjite și efecte de umbră */
+/* Buttons with rounded corners and shadow effects */
 .btn {
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .btn-primary {
-    background-color: #61bf9c; /* Verde vibrant */
+    background-color: #61bf9c;
     border-color: #042125;
 }
 
 .btn-primary:hover {
-    background-color: #1b5a09; /* Culoare mai închisă la hover */
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15); /* Umbră mai puternică la hover */
+    background-color: #1b5a09;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Culori personalizate */
+/* Custom colors */
 body {
-    background-color: #cdc5c5; /* Fundal deschis */
-    color: #333; /* Text întunecat pentru citire ușoară */
+    background-color: #cdc5c5;
+    color: #333;
 }
 
 .navbar {
-    background-color: #73159e; /* pentru navbar */
+    background-color: #73159e;
 }
 
 .navbar-nav .nav-link {
-    color: #532918 !important; /* Alb pentru textul din navbar */
+    color: #532918 !important;
 }
 
 .navbar-nav .nav-link:hover {
-    color: #bc7f7f; /* Gri deschis la hover */
+    color: #bc7f7f;
 }
 
 footer {
     background-color: #084e0b;
     color: white;
-    border-top: 2px solid #fff; /* Linie de separare */
+    border-top: 2px solid #fff;
 }
 
 footer a {
@@ -212,25 +212,25 @@ footer a:hover {
     text-decoration: underline;
 }
 
-/* Efect de hover pentru linkuri din navbar */
+/* Hover effect for navbar links */
 .navbar-nav .nav-link {
     color: #ff6ca4;
     transition: color 0.3s ease;
 }
 
 .navbar-nav .nav-link:hover {
-    color: #9955D3; /* Complementary purple */
+    color: #9955D3; 
 }
 
 .navbar-toggler-icon {
-    background-color: #e5dbed; /* pentru iconița de meniu pe mobile */
+    background-color: #e5dbed;
 }
 
 .navbar-collapse {
-    justify-content: center; /* Centerarea elementelor în navbar */
+    justify-content: center;
 }
 
-/* Mesaje de alertă */
+/* Alert messages */
 .alert {
     margin-top: 20px;
     border-radius: 8px;
@@ -253,7 +253,7 @@ footer a:hover {
     color: black;
 }
 
-/* Căutare îmbunătățită */
+/* Enhanced search */
 form.d-flex {
     margin: 0 auto;
     max-width: 400px;
@@ -273,16 +273,16 @@ form .btn-outline-success:hover {
     color: white;
 }
 
-/* Animație pentru carduri */
+/* Animation for cards */
 .card {
     transition: transform 0.3s ease;
 }
 
 .card:hover {
-    transform: translateY(-10px); /* Cardul se ridică la hover */
+    transform: translateY(-10px);
 }
 
-/* Exemplu de CSS personalizat */
+/* Example of custom CSS */
 .container {
     padding: 20px;
 }
@@ -298,3 +298,4 @@ img {
     display: block;
     margin: 0 auto;
 }
+```
