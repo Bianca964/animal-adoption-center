@@ -8,7 +8,9 @@
         <div class="card m-2" style="width: 18rem;">
             <!-- Image section (header) -->
             <div class="card-header p-0">
-                <img src="{{ url_for('static', filename=animal.image) }}" class="card-img-top" alt="{{ animal.jpg }}" style="height: 200px; object-fit: cover;">
+<!--                <img src="{{ url_for('static', filename=animal.image) }}" class="card-img-top" alt="{{ animal.jpg }}" style="height: 200px; object-fit: cover;">-->
+                    <img src="{{ url_for('static', filename=animal.image_path) }}" class="card-img-top" alt="{{ animal.jpg }}" style="height: 200px; object-fit: cover;">
+
             </div>
             <!-- Animal details -->
             <div class="card-body">

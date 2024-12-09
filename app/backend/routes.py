@@ -74,14 +74,16 @@ def upload():
 
         if image and allowed_file(image.filename):
             # Save the image
-            save_path = os.path.join(current_app.root_path, "static", "images", animal_type)
+            save_path = os.path.join(current_app.root_path,"..",  "frontend", "static", "images", animal_type)
 
             os.makedirs(save_path, exist_ok=True)
             image_path = os.path.join(save_path, image.filename)
             image.save(image_path)
 
             # Save the animal to the database
-            relative_image_path = os.path.join("static", "images", animal_type, image.filename)
+            relative_image_path = os.path.join("images", animal_type, image.filename)
+            print("relative image path" + relative_image_path)
+
             animal = Animal(
                 name=name,
                 age=int(age),
@@ -164,15 +166,24 @@ def not_logged_in():
 
 @main.route('/animals', methods=['GET'])
 def animals():
+    # Get the filter type from the query parameters
     animal_type = request.args.get('type')
+
+    # Query the database based on the filter type
     if animal_type:
         animals = Animal.query.filter_by(animal_type=animal_type).all()
     else:
         animals = Animal.query.all()
-    print (animals)
+
+    # Add the `image_path` to each animal
+    for animal in animals:
+        animal.image_path = f'{animal.image}'
+
+    # Debugging output (optional)
+    print(animal.image_path)
+
+    # Render the template with the enriched animal data
     return render_template('animals.html', animals=animals, filter_type=animal_type)
-
-
 
 
 @main.route('/delete_animal/<int:animal_id>', methods=['POST'])

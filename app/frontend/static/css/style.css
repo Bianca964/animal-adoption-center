@@ -147,7 +147,7 @@ ul li {
 }
 
 .btn-primary {
-    background-color: #6ba875; /* Verde vibrant */
+    background-color: #61bf9c; /* Verde vibrant */
     border-color: #042125;
 }
 
@@ -214,7 +214,7 @@ footer a:hover {
 
 /* Efect de hover pentru linkuri din navbar */
 .navbar-nav .nav-link {
-    color: #4b6bc6;
+    color: #ff6ca4;
     transition: color 0.3s ease;
 }
 
