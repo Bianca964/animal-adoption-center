@@ -1,0 +1,16 @@
+{% extends "home.html" %}
+
+{% block content %}
+<h1 class="text-center my-4">Adopt {{ animal.name }}</h1>
+<form method="POST">
+    <div class="mb-3">
+        <label for="adopter_name" class="form-label">Your Name</label>
+        <input type="text" class="form-control" id="adopter_name" name="adopter_name" required>
+    </div>
+    <div class="mb-3">
+        <label for="adopter_email" class="form-label">Your Email</label>
+        <input type="email" class="form-control" id="adopter_email" name="adopter_email" required>
+    </div>
+    <button type="submit" class="btn btn-success">Submit Adoption Request</button>
+</form>
+{% endblock %}

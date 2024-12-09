@@ -214,6 +214,20 @@ def edit_animal(animal_id):
 
 
 
+@main.route('/adopt/<int:animal_id>', methods=['GET', 'POST'])
+def adopt_animal(animal_id):
+    animal = Animal.query.get_or_404(animal_id)
+    if request.method == 'POST':
+        # Procesează formularul de adopție
+        adopter_name = request.form.get('adopter_name')
+        adopter_email = request.form.get('adopter_email')
+        # Salvează informațiile în baza de date sau trimite o notificare
+        flash(f'You have successfully applied to adopt {animal.name}!', 'success')
+        return redirect(url_for('main.animals'))
+    return render_template('adopt_form.html', animal=animal)
+
+
+
 
 def pretty_print_POST(req):
     """
