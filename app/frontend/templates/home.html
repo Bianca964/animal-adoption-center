@@ -55,7 +55,9 @@
                         <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
                     {% endif %}
                     {% if current_user.is_authenticated %}
-                        <li class="nav-item"><a class="nav-link" href="/upload">Upload</a></li>
+                        {% if current_user.is_admin %}g
+                            <li class="nav-item"><a class="nav-link" href="/upload">Upload</a></li>
+                        {% endif %}
                         <li class="nav-item"><a class="nav-link" href="/logout">Log out</a></li>
                     {% endif %}
                 </ul>
