@@ -68,9 +68,20 @@ def upload():
             flash('All fields are required. Please fill out the form completely.', 'danger')
             return redirect(url_for('main.upload'))
 
-        if not age.isdigit():
+        def is_float(value):
+            try:
+                float(value)
+                return True
+            except ValueError:
+                return False
+
+        if not is_float(age):
             flash('Age must be a number.', 'danger')
             return redirect(url_for('main.upload'))
+
+        # if not age.isdigit():g
+        #     flash('Age must be a number.', 'danger')
+        #     return redirect(url_for('main.upload'))
 
         if image and allowed_file(image.filename):
             # Save the image
@@ -86,7 +97,7 @@ def upload():
 
             animal = Animal(
                 name=name,
-                age=int(age),
+                age=float(age),
                 animal_type=animal_type,
                 description=description,
                 image=relative_image_path
