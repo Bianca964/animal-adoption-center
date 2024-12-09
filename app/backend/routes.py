@@ -248,6 +248,12 @@ def adopt_animal(animal_id):
         # Procesează formularul de adopție
         adopter_name = request.form.get('adopter_name')
         adopter_email = request.form.get('adopter_email')
+        adopter_phone = request.form.get('adopter_phone')
+        adopter_address = request.form.get('adopter_address')
+
+        db.session.delete(animal)
+        db.session.commit()
+
         # Salvează informațiile în baza de date sau trimite o notificare
         flash(f'You have successfully applied to adopt {animal.name}!', 'success')
         return redirect(url_for('main.animals'))
