@@ -287,5 +287,19 @@ form .btn-outline-success:hover {
 }
 
 
+/* Exemplu de CSS personalizat */
+.container {
+    padding: 20px;
+}
 
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
 
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
